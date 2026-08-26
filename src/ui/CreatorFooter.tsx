@@ -31,7 +31,7 @@ export function CreatorFooter({ className = '' }: { className?: string }) {
         </div>
 
         <p className="text-[0.82rem] text-espresso/70 leading-snug">
-          Created with ❤️ by <strong className="text-espresso">Kanta Raj Luitel</strong>
+          ℹ️ Made by <strong className="text-espresso">Kanta Raj Luitel / Susant Luitel</strong>
         </p>
 
         <a

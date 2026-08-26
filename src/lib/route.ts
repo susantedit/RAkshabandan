@@ -20,6 +20,7 @@ export type Route =
 const SCREENS: Record<string, Route['name']> = {
   '': 'home',
   'make-rakhi': 'sister-build',
+  build: 'sister-build',
   defend: 'brother-defend',
   wallet: 'wallet',
   privacy: 'privacy',

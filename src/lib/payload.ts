@@ -148,6 +148,9 @@ export interface BrotherReplyPayload {
   finalPayout: number
   vouchers: Voucher[]
   note: string
+  upiId?: string
+  upiName?: string
+  qrImage?: string
 }
 
 export type DefenseType = 'vault' | 'contract' | 'roulette'
@@ -170,6 +173,9 @@ export interface BrotherPayload {
   contract: { budgetCap: number; terms: string[] }
   roulette: { seed: number; slots: WheelSlot[] }
   note: string
+  upiId?: string
+  upiName?: string
+  qrImage?: string
 }
 
 export interface SisterReplyPayload {
@@ -356,6 +362,9 @@ export function emptyBrother(): BrotherPayload {
     contract: { budgetCap: 101, terms: DEFAULT_CONTRACT_TERMS.slice(0, 3) },
     roulette: { seed: 0, slots: [] },
     note: "Happy Raksha Bandhan! Here's your gift 🎁",
+    upiId: '',
+    upiName: '',
+    qrImage: '',
   }
 }
 
@@ -486,6 +495,9 @@ export function normalizeBrotherReply(input: unknown): BrotherReplyPayload {
     finalPayout: num(b.finalPayout, 0, 0, 9_999_999),
     vouchers: normVouchers(b.vouchers),
     note: str(b.note, '', 400),
+    upiId: str(b.upiId, '', 120),
+    upiName: str(b.upiName, '', 60),
+    qrImage: str(b.qrImage, '', 300_000),
   }
 }
 
@@ -519,6 +531,9 @@ export function normalizeBrother(input: unknown): BrotherPayload {
       slots: normSlots(roulette.slots),
     },
     note: str(b.note, '', 400),
+    upiId: str(b.upiId, '', 120),
+    upiName: str(b.upiName, '', 60),
+    qrImage: str(b.qrImage, '', 300_000),
   }
 }
 

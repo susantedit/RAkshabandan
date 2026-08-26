@@ -45,31 +45,33 @@ import {
   useNoWebGL,
   Well,
 } from '../ui/kit'
-import { StatCard } from '../ui/bits'
+import { QrUploadPanel, StatCard } from '../ui/bits'
 import { Handoff, useCapsuleLink } from '../ui/Handoff'
 import { CreatorFooter } from '../ui/CreatorFooter'
 import { playMemeSong } from '../lib/audio'
 
+import { IconContract, IconLock, IconRoulette } from '../ui/icons'
+
 const STEPS = ['Who', 'Defense', 'Send']
 
-const DEFENSES: { id: DefenseType; name: string; blurb: string; emoji: string }[] = [
+const DEFENSES: { id: DefenseType; name: string; blurb: string; icon: React.ReactNode }[] = [
   {
     id: 'vault',
     name: 'The Shagun Vault',
     blurb: 'Lock the gift inside. She taps it open or gets nothing.',
-    emoji: '🔐',
+    icon: <IconLock size={22} />,
   },
   {
     id: 'contract',
     name: 'Budget Contract',
     blurb: 'A hard cap, signed and sealed, with non-negotiable clauses.',
-    emoji: '📜',
+    icon: <IconContract size={22} />,
   },
   {
     id: 'roulette',
     name: 'Early-Bird Roulette',
     blurb: 'Send the wheel first. Let luck set your liability.',
-    emoji: '🎰',
+    icon: <IconRoulette size={22} />,
   },
 ]
 
@@ -205,10 +207,12 @@ export function BrotherDefend() {
     setDraft((current) => ({ ...current, contract: { ...current.contract, ...next } }))
 
   const slots = useMemo(() => buildWheel(ceiling), [ceiling])
-  const cleanTerms = useMemo(
-    () => draft.contract.terms.map((t) => t.trim()).filter(Boolean).slice(0, 6),
-    [draft.contract.terms],
-  )
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    document.querySelectorAll('.scroll-y').forEach((el) => {
+      el.scrollTop = 0
+    })
+  }, [step])
 
   /* The brother gets to feel his own lock before he inflicts it. */
   const demo = useTapCounter({
@@ -464,7 +468,7 @@ export function BrotherDefend() {
                     onClick={() => patch({ defenseType: defense.id })}
                     title={defense.name}
                     subtitle={defense.blurb}
-                    emoji={defense.emoji}
+                    icon={defense.icon}
                   />
                 ))}
               </div>
@@ -797,6 +801,30 @@ export function BrotherDefend() {
                 placeholder={`Happy Raksha Bandhan ${draft.sisterName || 'didi'}. Before you send me any invoice, read this.`}
                 hint={`${draft.note.length}/400 · she reads this before the lock appears`}
                 onChange={(event) => patch({ note: event.target.value })}
+              />
+            </Card>
+
+            <QrUploadPanel
+              qrImage={draft.qrImage}
+              onChange={(img) => patch({ qrImage: img })}
+            />
+
+            <Card>
+              <Field
+                label="Your UPI ID (Optional)"
+                value={draft.upiId || ''}
+                maxLength={120}
+                placeholder="susant@upi"
+                hint="Used if she needs to pay or send funds back to you."
+                onChange={(event) => patch({ upiId: event.target.value })}
+              />
+              <Field
+                className="mt-3"
+                label="Your Name for UPI (Optional)"
+                value={draft.upiName || ''}
+                maxLength={60}
+                placeholder={draft.brotherName || 'Susant'}
+                onChange={(event) => patch({ upiName: event.target.value })}
               />
             </Card>
 

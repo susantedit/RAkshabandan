@@ -121,7 +121,7 @@ export function BrotherSettle({ reply }: { reply: SisterReplyPayload }) {
     }
   }
 
-  const story = (): StorySpec => {
+  const story = (photoImage?: string): StorySpec => {
     if (def === 'vault') {
       return {
         eyebrow: 'Raksha Bandhan',
@@ -141,6 +141,7 @@ export function BrotherSettle({ reply }: { reply: SisterReplyPayload }) {
         stamp: reply.reaction || 'Cracked',
         quote: reply.note || undefined,
         accent: 'pista',
+        photoImage,
       }
     }
     if (def === 'contract') {
@@ -160,6 +161,7 @@ export function BrotherSettle({ reply }: { reply: SisterReplyPayload }) {
         stamp: reply.reaction || (reply.status === 'accepted' ? 'Agreed' : 'Rejected'),
         quote: reply.note || undefined,
         accent: reply.status === 'accepted' ? 'pista' : 'gulabi',
+        photoImage,
       }
     }
     return {
@@ -177,6 +179,7 @@ export function BrotherSettle({ reply }: { reply: SisterReplyPayload }) {
       stamp: reply.reaction || (owed > 0 ? undefined : 'Blessings Only'),
       quote: reply.note || undefined,
       accent: 'marigold',
+      photoImage,
     }
   }
 

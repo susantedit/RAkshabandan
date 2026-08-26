@@ -12,6 +12,7 @@ import { downloadBlob, shareFile } from '../lib/share'
 import { renderStoryCard, type StorySpec } from '../lib/story'
 import { celebrate, tap as hapticTap } from '../lib/haptics'
 import { Btn, Card, Tag, Well, toast } from './kit'
+import { IconCamera, IconCheck, IconCreditCard, IconQr } from './icons'
 
 /* ── itemised bill ───────────────────────────────────────────────────────── */
 
@@ -301,17 +302,51 @@ export function StoryCardButton({
   label = 'Download Story Card',
   tone = 'ink',
 }: {
-  spec: () => StorySpec
+  spec: (photoImage?: string) => StorySpec
   filename: string
   label?: string
   tone?: 'ink' | 'gold' | 'pink' | 'mint' | 'sky' | 'cream'
 }) {
   const [busy, setBusy] = useState(false)
+  const [photo, setPhoto] = useState<string | undefined>()
+  const photoInputRef = useRef<HTMLInputElement>(null)
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      toast('Please select an image file', 'warn')
+      return
+    }
+    try {
+      const dataUrl = await compressQrImage(file)
+      setPhoto(dataUrl)
+      celebrate()
+      toast('Photo added to story card! 📸')
+    } catch {
+      toast('Could not process photo', 'warn')
+    }
+  }
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+
+  const handlePreview = async () => {
+    setBusy(true)
+    try {
+      const blob = await renderStoryCard(spec(photo))
+      const url = URL.createObjectURL(blob)
+      setPreviewUrl(url)
+    } catch {
+      toast('Could not preview story card', 'warn')
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const run = async () => {
     setBusy(true)
     try {
-      const blob = await renderStoryCard(spec())
+      const blob = await renderStoryCard(spec(photo))
       const file = new File([blob], filename, { type: 'image/png' })
       const outcome = await shareFile(file, 'Sibling Agreement', 'Our Raksha Bandhan settlement 🪢')
       if (outcome !== 'shared') {
@@ -327,9 +362,75 @@ export function StoryCardButton({
   }
 
   return (
-    <Btn tone={tone} block onClick={run} disabled={busy}>
-      {busy ? 'Painting…' : `📸 ${label}`}
-    </Btn>
+    <div className="space-y-2">
+      <input
+        ref={photoInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handlePhotoUpload}
+      />
+      {photo ? (
+        <div className="flex items-center justify-between p-2 rounded-xl bg-puffy border-2 border-clayline">
+          <div className="flex items-center gap-2">
+            <img src={photo} alt="Story photo" className="w-9 h-9 object-cover rounded-lg" />
+            <span className="text-[0.78rem] font-bold text-espresso/70">Photo attached ✔</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setPhoto(undefined)}
+            className="text-[0.75rem] font-semibold text-gulabi-deep hover:underline"
+          >
+            Remove ✕
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => photoInputRef.current?.click()}
+          className="w-full py-2 px-3 rounded-xl border-2 border-dashed border-marigold/60 text-[0.78rem] font-bold text-marigold-deep hover:bg-clayline/20 flex items-center justify-center gap-2 transition-colors"
+        >
+          <IconCamera size={18} />
+          Add Photo to Story Card (Optional)
+        </button>
+      )}
+      <div className="grid grid-cols-2 gap-2">
+        <Btn tone="cream" onClick={handlePreview} disabled={busy}>
+          👁️ Preview
+        </Btn>
+        <Btn tone={tone} onClick={run} disabled={busy}>
+          {busy ? 'Painting…' : label}
+        </Btn>
+      </div>
+
+      {previewUrl && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center p-4">
+          <div className="max-w-sm w-full bg-kesar rounded-3xl p-4 space-y-3 flex flex-col max-h-[90vh] shadow-2xl border-4 border-clayline">
+            <div className="flex items-center justify-between">
+              <h3 className="font-display font-bold text-lg text-espresso">Story Card Preview</h3>
+              <button
+                type="button"
+                onClick={() => setPreviewUrl(null)}
+                className="w-8 h-8 rounded-full bg-clayline text-espresso font-bold flex items-center justify-center"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl border-2 border-clayline bg-black/5 flex items-center justify-center p-2">
+              <img src={previewUrl} alt="Story Card Preview" className="max-h-full object-contain rounded-xl shadow-lg" />
+            </div>
+            <div className="flex gap-2">
+              <Btn tone="cream" block onClick={() => setPreviewUrl(null)}>
+                Close
+              </Btn>
+              <Btn tone="mint" block onClick={() => { setPreviewUrl(null); run() }}>
+                Approve & Download 🚀
+              </Btn>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -6,7 +6,7 @@
  * gets a real editor rather than a fixed list.
  */
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { goHome } from '../lib/route'
 import { inr } from '../lib/money'
 import {
@@ -155,6 +155,13 @@ export function SisterBuild() {
   const demand = autoTotal ? billTotal : draft.demandAmt
 
   const previewMode: 'rakhi' | 'thali' = step === 1 ? 'thali' : 'rakhi'
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    document.querySelectorAll('.scroll-y').forEach((el) => {
+      el.scrollTop = 0
+    })
+  }, [step])
 
   const toggleMithai = (id: MithaiId) => {
     const has = draft.thali.mithai.includes(id)

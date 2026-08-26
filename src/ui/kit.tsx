@@ -20,7 +20,8 @@ import {
   type TextareaHTMLAttributes,
 } from 'react'
 import { parseAmount } from '../lib/money'
-import { tap as hapticTap } from '../lib/haptics'
+import { tap as hapticTap, thud } from '../lib/haptics'
+import { IconArrowLeft, IconCheck } from './icons'
 
 const cx = (...parts: (string | false | null | undefined)[]) => parts.filter(Boolean).join(' ')
 
@@ -128,6 +129,7 @@ export function Chip({
   onClick,
   title,
   subtitle,
+  icon,
   emoji,
   swatch,
   className,
@@ -137,6 +139,7 @@ export function Chip({
   onClick: () => void
   title: string
   subtitle?: string
+  icon?: ReactNode
   emoji?: string
   swatch?: string
   className?: string
@@ -154,25 +157,21 @@ export function Chip({
       }}
       className={cx('toy-chip no-select min-w-0 disabled:opacity-45', className)}
     >
-      {/* The selected tick is a corner badge, not a third item in the title row.
-          Inline it competed with the title for a chip that is often only ~150px
-          wide: before the row was allowed to shrink the tick spilled out past
-          the border entirely, and once it could shrink, a title like "A real
-          gift card" wrapped to three lines to make room for it. It is always
-          rendered so selecting a chip never reflows its text. */}
       <span
         aria-hidden
-        className="absolute top-1.5 right-2 text-pista text-[0.95rem] leading-none transition-opacity"
+        className="absolute top-1.5 right-2 text-pista text-[0.95rem] leading-none transition-opacity flex items-center justify-center"
         style={{ opacity: on ? 1 : 0 }}
       >
-        ✔
+        <IconCheck size={16} />
       </span>
-      <span className="flex items-center gap-2 w-full min-w-0 pr-2">
+      <span className="flex items-center gap-2.5 w-full min-w-0 pr-2">
         {swatch ? (
           <span
             className="w-5 h-5 rounded-full border-[2.5px] border-espresso shrink-0"
             style={{ background: swatch }}
           />
+        ) : icon ? (
+          <span className="text-marigold shrink-0">{icon}</span>
         ) : emoji ? (
           <span className="text-lg leading-none shrink-0">{emoji}</span>
         ) : null}
@@ -181,7 +180,7 @@ export function Chip({
         </span>
       </span>
       {subtitle && (
-        <span className="text-[0.74rem] text-espresso/55 leading-snug text-left">{subtitle}</span>
+        <span className="text-[0.74rem] text-espresso/65 leading-snug text-left mt-0.5">{subtitle}</span>
       )}
     </button>
   )
@@ -392,7 +391,7 @@ export function TopBar({
 export function BackBtn({ onClick }: { onClick: () => void }) {
   return (
     <Btn tone="cream" size="sm" onClick={onClick} aria-label="Go back" className="!px-3">
-      ←
+      <IconArrowLeft size={18} />
     </Btn>
   )
 }

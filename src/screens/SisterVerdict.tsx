@@ -512,7 +512,7 @@ export function SisterVerdict({ reply }: { reply: BrotherReplyPayload }) {
     if (revealed) setConfetti((n) => n + 1)
   }, [revealed])
 
-  const story = (): StorySpec => {
+  const story = (photoImage?: string): StorySpec => {
     if (reply.responseType === 'roulette') {
       return {
         eyebrow: 'Sibling Agreement',
@@ -530,6 +530,7 @@ export function SisterVerdict({ reply }: { reply: BrotherReplyPayload }) {
         stamp: payout > 0 ? undefined : 'Blessings Only',
         quote: reply.note || undefined,
         accent: 'marigold',
+        photoImage,
       }
     }
     if (reply.responseType === 'audit') {
@@ -552,6 +553,7 @@ export function SisterVerdict({ reply }: { reply: BrotherReplyPayload }) {
         stamp: 'Audited',
         quote: reply.note || undefined,
         accent: 'gulabi',
+        photoImage,
       }
     }
     return {
@@ -566,6 +568,7 @@ export function SisterVerdict({ reply }: { reply: BrotherReplyPayload }) {
       stamp: 'Signed',
       quote: reply.note || undefined,
       accent: 'pista',
+      photoImage,
     }
   }
 
@@ -605,6 +608,17 @@ export function SisterVerdict({ reply }: { reply: BrotherReplyPayload }) {
               {reply.note}
             </p>
           </Card>
+        )}
+
+        {(reply.qrImage || reply.upiId) && (
+          <NepalQrDisplayPanel
+            qrImage={reply.qrImage}
+            vpa={reply.upiId}
+            name={reply.upiName || reply.brotherName}
+            amount={payout}
+            note={`Payment to ${reply.brotherName}`}
+            cta={`Pay ${reply.brotherName}`}
+          />
         )}
 
         {revealed && (

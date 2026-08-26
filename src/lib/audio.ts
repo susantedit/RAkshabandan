@@ -17,7 +17,7 @@ export function getBgAudio(): HTMLAudioElement {
 
 export function playBackgroundMusic(): void {
   const audio = getBgAudio()
-  if (muted) return
+  if (muted || currentEffectAudio) return
   audio.play().catch(() => {
     // Autoplay restrictions handle on user interaction
   })
@@ -27,11 +27,13 @@ export function toggleMute(): boolean {
   muted = !muted
   const bg = getBgAudio()
   bg.muted = muted
-  if (currentEffectAudio) {
-    currentEffectAudio.muted = muted
-  }
-  if (!muted && bg.paused) {
-    bg.play().catch(() => {})
+  if (muted) {
+    bg.pause()
+  } else {
+    // Only resume background music if no meme effect audio is currently playing
+    if (!currentEffectAudio && bg.paused) {
+      bg.play().catch(() => {})
+    }
   }
   return muted
 }
@@ -49,19 +51,25 @@ export function stopEffectAudio(): void {
 }
 
 /**
- * Plays a specific meme song when sister opens vault:
+ * Plays a specific meme song when sister or brother opens vault / reveals:
  * - 'paisa' -> /paisa hi paisa hoga.m4a
- * - 'nothing' -> /nothing.m4a
- * - default -> /brother.m4a
+ * - 'nahi' / 'nothing' -> /nothing.m4a
+ * - 'blessing' / 'bless' -> /bless.m4a
+ * - default ('sad', 'custom', etc.) -> /brother.m4a
  */
 export function playMemeSong(mode: string, meme?: string): void {
   stopEffectAudio()
 
   let src = '/brother.m4a'
-  if (meme === 'paisa' || mode === 'paisa') {
+  const key = meme || mode
+  if (key === 'paisa') {
     src = '/paisa hi paisa hoga.m4a'
-  } else if (meme === 'nothing' || mode === 'nothing' || (mode === 'meme' && meme === 'custom')) {
+  } else if (key === 'nahi' || key === 'nothing') {
     src = '/nothing.m4a'
+  } else if (key === 'blessing' || key === 'bless') {
+    src = '/bless.m4a'
+  } else {
+    src = '/brother.m4a'
   }
 
   // PAUSE background music while meme plays so they never overlap
@@ -71,11 +79,14 @@ export function playMemeSong(mode: string, meme?: string): void {
 
   const effect = new Audio(src)
   effect.volume = 1.0
-  effect.muted = muted
+  // Meme sound should NOT be muted even if background music is unmuted/muted
+  effect.muted = false
   currentEffectAudio = effect
 
   const resumeBg = () => {
-    currentEffectAudio = null
+    if (currentEffectAudio === effect) {
+      currentEffectAudio = null
+    }
     if (bgAudio && !muted) {
       bgAudio.play().catch(() => {})
     }
@@ -90,32 +101,9 @@ export function playMemeSong(mode: string, meme?: string): void {
 }
 
 /**
- * Plays blessing sound effect / song (/bless.m4a).
+ * Plays blessing song (/bless.m4a).
  */
 export function playBlessSong(): void {
-  stopEffectAudio()
-
-  // PAUSE background music while blessing song plays
-  if (bgAudio) {
-    bgAudio.pause()
-  }
-
-  const effect = new Audio('/bless.m4a')
-  effect.volume = 1.0
-  effect.muted = muted
-  currentEffectAudio = effect
-
-  const resumeBg = () => {
-    currentEffectAudio = null
-    if (bgAudio && !muted) {
-      bgAudio.play().catch(() => {})
-    }
-  }
-
-  effect.onended = resumeBg
-  effect.onerror = resumeBg
-
-  effect.play().catch(() => {
-    resumeBg()
-  })
+  playMemeSong('blessing', 'blessing')
 }
+

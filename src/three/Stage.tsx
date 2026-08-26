@@ -215,14 +215,14 @@ export function Turntable({
     const step = Math.min(delta, 0.05)
 
     if (!s.dragging) {
-      // Flick inertia, then hand back to the idle turntable spin.
+      // Flick inertia, then smoothly blend back to the idle turntable spin.
       s.y += s.vy
       s.x += s.vx
       s.vy *= 0.92
       s.vx *= 0.9
       s.idle += step
-      if (Math.abs(s.vy) < 0.0015 && s.idle > 0.6 && autoSpin) {
-        s.y += autoSpin * step
+      if (Math.abs(s.vy) < 0.003 && s.idle > 0.4 && autoSpin) {
+        s.vy = THREE.MathUtils.lerp(s.vy, autoSpin * step, 0.08)
       }
       s.x *= 0.97 // settle back toward level
     }

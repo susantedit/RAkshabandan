@@ -45,7 +45,7 @@ import {
   useNoWebGL,
   Well,
 } from '../ui/kit'
-import { BillTable, StatCard, VoiceNote } from '../ui/bits'
+import { BillTable, QrUploadPanel, StatCard, VoiceNote } from '../ui/bits'
 import { Handoff, useCapsuleLink } from '../ui/Handoff'
 import { CreatorFooter } from '../ui/CreatorFooter'
 
@@ -491,13 +491,18 @@ function VoucherComposer({
   )
 }
 
+import { IconAudit, IconCheck, IconRoulette, IconVoucher } from '../ui/icons'
+
 /* ── screen ──────────────────────────────────────────────────────────────── */
 
 export function BrotherReceive({ sister }: { sister: SisterPayload }) {
   const [phase, setPhase] = useState<Phase>('intro')
-  const [choice, setChoice] = useState<ResponseType | null>(null)
+  const [choice, setChoice] = useState<ResponseType | null>('roulette')
   const [brotherName, setBrotherName] = useState(sister.brotherName)
   const [note, setNote] = useState('')
+  const [upiId, setUpiId] = useState('')
+  const [upiName, setUpiName] = useState('')
+  const [qrImage, setQrImage] = useState('')
   const [deductions, setDeductions] = useState<Deduction[]>(() =>
     DEFAULT_DEDUCTIONS.map((d) => ({ ...d })),
   )
@@ -513,6 +518,10 @@ export function BrotherReceive({ sister }: { sister: SisterPayload }) {
   const demand = sister.demandAmt
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+    document.querySelectorAll('.scroll-y').forEach((el) => {
+      el.scrollTop = 0
+    })
     if (phase === 'reveal') setConfetti((n) => n + 1)
   }, [phase])
 
@@ -550,6 +559,9 @@ export function BrotherReceive({ sister }: { sister: SisterPayload }) {
       finalPayout,
       vouchers: chosenVouchers,
       note: note.trim(),
+      upiId: upiId.trim(),
+      upiName: upiName.trim() || brotherName.trim(),
+      qrImage,
     }
 
     thud()
@@ -750,22 +762,22 @@ export function BrotherReceive({ sister }: { sister: SisterPayload }) {
 
   /* ── choose a counter-action ────────────────────────────────────────────── */
   if (phase === 'choose') {
-    const options: { id: ResponseType; emoji: string; title: string; blurb: string }[] = [
+    const options: { id: ResponseType; icon: React.ReactNode; title: string; blurb: string }[] = [
       {
         id: 'roulette',
-        emoji: '🎡',
+        icon: <IconRoulette size={26} className="text-marigold" />,
         title: 'Shagun Roulette',
         blurb: `Put her ${inr(demand)} on a wheel where it is a ${jackpotOdds(slots)} jackpot. She spins. Fate decides.`,
       },
       {
         id: 'audit',
-        emoji: '📉',
+        icon: <IconAudit size={26} className="text-gulabi" />,
         title: 'Tax Audit Deduction',
         blurb: 'Line-item every hoodie she stole and deduct it from the bill. With sliders.',
       },
       {
         id: 'voucher',
-        emoji: '🎟️',
+        icon: <IconVoucher size={26} className="text-pista" />,
         title: 'Duty Voucher Deck',
         blurb: 'Pay in signed favours instead of money. Saved to her wallet forever.',
       },
@@ -811,21 +823,21 @@ export function BrotherReceive({ sister }: { sister: SisterPayload }) {
                 hapticTap()
                 setChoice(option.id)
               }}
-              className={`w-full text-left toy-card !p-4 flex gap-3 items-start transition-transform active:translate-y-[3px] ${
+              className={`w-full text-left toy-card !p-4 flex gap-3.5 items-start transition-all ${
                 choice === option.id ? '!border-pista !shadow-[0_10px_0_var(--color-pista-deep)]' : ''
               }`}
             >
-              <span className="text-3xl leading-none shrink-0">{option.emoji}</span>
+              <span className="p-2 rounded-xl bg-clayline/30 shrink-0">{option.icon}</span>
               <span className="min-w-0 flex-1">
                 <span className="block font-display font-bold text-[1.02rem] leading-tight">
                   {option.title}
                 </span>
-                <span className="block text-[0.8rem] text-espresso/60 leading-snug mt-1">
+                <span className="block text-[0.82rem] text-espresso/65 leading-snug mt-1">
                   {option.blurb}
                 </span>
               </span>
-              <span className={`text-xl shrink-0 ${choice === option.id ? 'text-pista' : 'text-espresso/20'}`}>
-                {choice === option.id ? '✔' : '›'}
+              <span className={`shrink-0 pt-1 ${choice === option.id ? 'text-pista' : 'text-espresso/20'}`}>
+                {choice === option.id ? <IconCheck size={20} /> : <span className="text-xl">›</span>}
               </span>
             </button>
           ))}
@@ -868,6 +880,21 @@ export function BrotherReceive({ sister }: { sister: SisterPayload }) {
             maxLength={200}
             placeholder="Nothing personal. It's just business."
             onChange={(event) => setNote(event.target.value)}
+          />
+        </Card>
+
+        <QrUploadPanel
+          qrImage={qrImage}
+          onChange={(img) => setQrImage(img)}
+        />
+
+        <Card>
+          <Field
+            label="Your UPI ID (Optional)"
+            value={upiId}
+            maxLength={120}
+            placeholder="susant@upi"
+            onChange={(event) => setUpiId(event.target.value)}
           />
         </Card>
 

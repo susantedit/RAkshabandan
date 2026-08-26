@@ -7,7 +7,7 @@
  * back as `#sr=`.
  */
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { goHome } from '../lib/route'
 import { inr } from '../lib/money'
 import {
@@ -57,7 +57,7 @@ import {
   useNoWebGL,
   Well,
 } from '../ui/kit'
-import { BillTable, QrUploadPanel, StatCard, StoryCardButton, UpiPanel } from '../ui/bits'
+import { BillTable, NepalQrDisplayPanel, QrUploadPanel, StatCard, StoryCardButton, UpiPanel } from '../ui/bits'
 import { Handoff, useCapsuleLink } from '../ui/Handoff'
 import { playBlessSong, playMemeSong } from '../lib/audio'
 import { CreatorFooter } from '../ui/CreatorFooter'
@@ -721,6 +721,13 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
 
   const needsUpi = demand > 0
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    document.querySelectorAll('.scroll-y').forEach((el) => {
+      el.scrollTop = 0
+    })
+  }, [phase])
+
   const beginAct = () => {
     // Seed a sensible default reaction for this branch.
     setReaction((current) => current || REACTION_PRESETS[brother.defenseType][0])
@@ -756,7 +763,7 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
     await build(payload)
   }
 
-  const story = (): StorySpec => {
+  const story = (photoImage?: string): StorySpec => {
     if (brother.defenseType === 'vault') {
       return {
         eyebrow: 'Raksha Bandhan',
@@ -773,6 +780,7 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
         stamp: reaction || 'Cracked',
         quote: brother.note || undefined,
         accent: 'pista',
+        photoImage,
       }
     }
     if (brother.defenseType === 'contract') {
@@ -791,6 +799,7 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
         stamp: reaction || (status === 'accepted' ? 'Agreed' : 'Rejected'),
         quote: brother.note || undefined,
         accent: status === 'accepted' ? 'pista' : 'gulabi',
+        photoImage,
       }
     }
     return {
@@ -808,6 +817,7 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
       stamp: reaction || (demand > 0 ? undefined : 'Blessings Only'),
       quote: brother.note || undefined,
       accent: 'marigold',
+      photoImage,
     }
   }
 
@@ -934,6 +944,18 @@ export function SisterChallenge({ brother }: { brother: BrotherPayload }) {
                 {brother.note}
               </p>
             </Card>
+          )}
+
+          {(brother.qrImage || brother.upiId) && (
+            <NepalQrDisplayPanel
+              className="mb-4"
+              qrImage={brother.qrImage}
+              vpa={brother.upiId}
+              name={brother.upiName || brother.brotherName}
+              amount={0}
+              note={`Payment to ${brother.brotherName}`}
+              cta={`Pay ${brother.brotherName}`}
+            />
           )}
 
           <Well className="mb-4">

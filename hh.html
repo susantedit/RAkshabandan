@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Royal Raksha Bandhan Story Card Replica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Fredoka:wght@700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080305;
+      color: #FFFDF8;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .preview-title {
+      color: #F3E5AB;
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 0.4rem;
+      letter-spacing: 1px;
+    }
+    .preview-sub {
+      color: #A38B95;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* 1080x1920 Proportional Replica Container (432px x 768px at 0.4x scale) */
+    .card-frame {
+      width: 432px;
+      height: 768px;
+      background: radial-gradient(circle at 50% 30%, #30050B 0%, #170205 60%, #0D0103 100%);
+      border-radius: 20px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.9), 0 0 0 3px #D4AF37;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 22px 18px 22px;
+    }
+
+    /* Gold Ornate Corner Borders */
+    .card-frame::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    .card-frame::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* Tassel Ornaments (Top Left & Right) */
+    .tassel {
+      position: absolute;
+      top: 14px;
+      width: 14px;
+      height: 70px;
+      background: radial-gradient(circle, #D4AF37 30%, transparent 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tassel-left { left: 16px; }
+    .tassel-right { right: 16px; }
+    .tassel-ball { width: 8px; height: 8px; background: #D4AF37; border-radius: 50%; }
+    .tassel-line { width: 2px; height: 35px; background: linear-gradient(#D4AF37, #990011); }
+    .tassel-skirt { width: 10px; height: 18px; background: #990011; border-radius: 0 0 4px 4px; box-shadow: 0 0 4px #D4AF37; }
+
+    /* 1. SIBLING AGREEMENT Gold Ornate Header */
+    .badge-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #500812, #260307);
+      border: 1.5px solid #D4AF37;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 4px 16px;
+      z-index: 5;
+    }
+    .badge-text {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #F3E5AB;
+      letter-spacing: 1.5px;
+    }
+    .badge-icon { color: #D4AF37; font-size: 10px; }
+
+    /* 2. Names Banner: Sujita ❤️ Susant */
+    .names-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      z-index: 5;
+    }
+    .name-pill {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .name-sister { background: linear-gradient(135deg, #A81B34, #660C1C); color: #FFFDF8; border-color: #E63946; }
+    .name-brother { background: linear-gradient(135deg, #0D6E6E, #053C3C); color: #E0F2F1; border-color: #2EC4B6; }
+
+    .heart-knot {
+      width: 22px;
+      height: 22px;
+      border: 1.5px solid #D4AF37;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D4AF37;
+      font-size: 10px;
+      background: #170205;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+    }
+
+    .sub-tagline {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #C5A059;
+      margin-top: 8px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    /* 3. Hero Centerpiece Frame (Rakhi or Custom Photo) */
+    .hero-frame {
+      width: 230px;
+      height: 190px;
+      margin-top: 12px;
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      padding: 4px;
+      background: linear-gradient(180deg, rgba(212,175,55,0.3), rgba(153,0,17,0.3));
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7), inset 0 0 15px rgba(212,175,55,0.2);
+      position: relative;
+    }
+    .hero-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1C0307;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 4. THE WHEEL HAS SPOKEN & ₹51 RESULT */
+    .result-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 12px;
+      position: relative;
+      width: 100%;
+    }
+    .wheel-flank {
+      position: absolute;
+      top: 15px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #D4AF37;
+      background: radial-gradient(circle, #800A1D 30%, #30030A 90%);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .wheel-left { left: 45px; }
+    .wheel-right { right: 45px; }
+
+    .wheel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #F3E5AB;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(243, 229, 171, 0.5);
+    }
+    .hero-amount {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1;
+      margin-top: 2px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF4BF 40%, #D4AF37 75%, #AA7C11 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+    }
+    .shagun-banner {
+      background: linear-gradient(90deg, transparent, #800A1D, transparent);
+      padding: 2px 20px;
+      color: #F3E5AB;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-top: 2px;
+    }
+    .decided-sub {
+      font-size: 9px;
+      font-style: italic;
+      color: #D4AF37;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+
+    /* 5. SHAGUN NEGOTIATION Receipt Card */
+    .receipt-card {
+      width: 100%;
+      background: #FFFBF2;
+      border: 1.5px solid #D4AF37;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      margin-top: 12px;
+      padding: 10px 14px;
+      color: #2B1810;
+      position: relative;
+    }
+    .receipt-header {
+      font-family: 'Cinzel', serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #660C1C;
+      text-align: center;
+      letter-spacing: 1px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #E6D7B8;
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      font-size: 11px;
+    }
+    .row-left { display: flex; align-items: center; gap: 6px; color: #4A3525; font-weight: 600; }
+    .row-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #660C1C;
+      color: #F3E5AB;
+      font-size: 9px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .row-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #2B1810; }
+
+    .receipt-row-final {
+      background: #FCE8B3;
+      margin: 4px -14px -10px -14px;
+      padding: 8px 14px;
+      border-radius: 0 0 12px 12px;
+      border-top: 1.5px solid #D4AF37;
+    }
+    .receipt-row-final .row-val { font-size: 14px; color: #660C1C; font-weight: 900; }
+
+    /* Rubber Stamp Positioned as Decorative Seal */
+    .stamp-seal {
+      position: absolute;
+      bottom: -10px;
+      right: 8px;
+      background: #FFFDF8;
+      border: 2px solid #990011;
+      color: #990011;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      transform: rotate(-8deg);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      letter-spacing: 0.5px;
+      z-index: 10;
+    }
+
+    /* 6. Playful Reaction Bubble */
+    .reaction-box {
+      margin-top: 14px;
+      border: 1px dashed rgba(212, 175, 55, 0.5);
+      border-radius: 8px;
+      padding: 5px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 11px;
+      font-style: italic;
+      color: #F3E5AB;
+      text-align: center;
+    }
+
+    /* 7. Footer Branding & Credits */
+    .card-footer {
+      margin-top: auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #F3E5AB;
+      letter-spacing: 1px;
+    }
+    .brand-sub {
+      font-size: 9px;
+      color: #A38B95;
+    }
+    .creator-credit {
+      font-size: 8.5px;
+      color: #D4AF37;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-title">Royal Crimson & Gold Story Card Poster</div>
+  <div class="preview-sub">Matches the Exact Design Architecture & Color Palette of the Reference Image</div>
+
+  <div class="card-frame">
+    <!-- Tassels -->
+    <div class="tassel tassel-left">
+      <div class="tassel-ball"></div>
+      <div class="tassel-line"></div>
+      <div class="tassel-skirt"></div>
+    </div>
+    <div class="tassel tassel-right">
+      <div class="tassel-ball"></div>
+      <div class="tassel-line"></div>
+      <div class="tassel-skirt"></div>
+    </div>
+
+    <!-- 1. Ornate Header Badge -->
+    <div class="badge-container">
+      <span class="badge-icon">☸</span>
+      <span class="badge-text">SIBLING AGREEMENT</span>
+      <span class="badge-icon">☸</span>
+    </div>
+
+    <!-- 2. Sibling Names -->
+    <div class="names-row">
+      <div class="name-pill name-sister">♥ Sujita</div>
+      <div class="heart-knot">♥</div>
+      <div class="name-pill name-brother">Susant ♥</div>
+    </div>
+    <div class="sub-tagline">◆ THE BOND IS REAL. THE BANTER IS LEGENDARY. ◆</div>
+
+    <!-- 3. Hero Centerpiece Image (Rakhi when no photo attached) -->
+    <div class="hero-frame">
+      <div class="hero-inner">
+        <img src="/logo.png" alt="Rakhi Hero Illustration" class="hero-img" style="object-contain: contain; padding: 20px;" />
+      </div>
+    </div>
+
+    <!-- 4. Result Section -->
+    <div class="result-section">
+      <div class="wheel-flank wheel-left">🎡</div>
+      <div class="wheel-flank wheel-right">🎡</div>
+      
+      <div class="wheel-title">◆ THE WHEEL HAS SPOKEN ◆</div>
+      <div class="hero-amount">₹51</div>
+      <div class="shagun-banner">FINAL SHAGUN</div>
+      <div class="decided-sub">~ decided by fate ~</div>
+    </div>
+
+    <!-- 5. Shagun Negotiation Receipt -->
+    <div class="receipt-card">
+      <div class="receipt-header">👑 SHAGUN NEGOTIATION 👑</div>
+      <div class="receipt-row">
+        <span class="row-left"><span class="row-icon">💰</span> Original Demand</span>
+        <span class="row-val">₹4,500</span>
+      </div>
+      <div class="receipt-row">
+        <span class="row-left"><span class="row-icon">🎯</span> Jackpot Chance</span>
+        <span class="row-val">10%</span>
+      </div>
+      <div class="receipt-row receipt-row-final">
+        <span class="row-left"><span class="row-icon" style="background:#800A1D;">💎</span> Final Shagun</span>
+        <span class="row-val">₹51</span>
+      </div>
+
+      <!-- Rubber Stamp Seal -->
+      <div class="stamp-seal">BLESSINGS ONLY ❤</div>
+    </div>
+
+    <!-- 6. Playful Reaction -->
+    <div class="reaction-box">
+      “Oookay... Fine. Deal. 😭😂”
+    </div>
+
+    <!-- 7. Footer Area -->
+    <div class="card-footer">
+      <div class="brand-title">anithor bond</div>
+      <div class="brand-sub">A bond that protects, a love that connects.</div>
+      <div class="creator-credit">&lt;/&gt; Made by Kanta Raj Luitel / Susant Luitel ❤</div>
+    </div>
+  </div>
+
+</body>
+</html>
+
