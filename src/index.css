@@ -1,0 +1,468 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────
+   FESTIVE TOYBOX — design tokens
+   Cartoon-clay aesthetic: warm cream canvas, chunky depressible
+   buttons, puffy cards with a hard bottom shadow (no glassmorphism).
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-kesar: #0d0d12; /* Deep Dark — canvas */
+  --color-marigold: #ffb703; /* Marigold Sun — primary action */
+  --color-marigold-deep: #e09a00;
+  --color-gulabi: #ff4d6d; /* Gulabi Coral — sister */
+  --color-gulabi-deep: #ff6b84;
+  --color-pista: #2ec4b6; /* Pistachio Green — brother / verified */
+  --color-pista-deep: #22a498;
+  --color-sky: #3a86ff; /* Sky Blue — dials, spinners */
+  --color-sky-deep: #2a6ddb;
+  --color-espresso: #f3f2f8; /* Crisp Light Text */
+  --color-puffy: #181722; /* Dark Toy Box — cards */
+  --color-clayline: #2c2b3d; /* dark card border */
+  --color-claydrop: #08070d; /* dark card hard shadow */
+
+  --font-display: 'Fredoka', 'Nunito', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-numeric: 'Nunito', 'Fredoka', ui-rounded, system-ui, sans-serif;
+
+  --radius-toy: 28px;
+  --radius-btn: 20px;
+
+  --animate-bob: bob 3s ease-in-out infinite;
+  --animate-pop-in: pop-in 0.42s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-pulse-ring: pulse-ring 1.6s ease-out infinite;
+  --animate-float-up: float-up 1.1s ease-out forwards;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-5deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -220% 0;
+  }
+  100% {
+    background-position: 220% 0;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 183 3 / 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgb(255 183 3 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 183 3 / 0);
+  }
+}
+@keyframes float-up {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-70px) scale(1.5);
+  }
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Lock the shell; individual screens own their scroll containers so
+       3D canvases never fight the page for touch gestures. */
+    height: 100%;
+    overscroll-behavior: none;
+    background-color: var(--color-kesar);
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    background-color: var(--color-kesar);
+    color: var(--color-espresso);
+    font-family: var(--font-body);
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Faint festive gold dot grid on dark canvas */
+    background-image: radial-gradient(rgb(255 183 3 / 0.16) 1.5px, transparent 1.6px);
+    background-size: 22px 22px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
+    margin: 0;
+    color: var(--color-espresso);
+  }
+
+  button {
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-espresso);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #6d6980;
+    font-weight: 600;
+  }
+
+  canvas {
+    display: block;
+    touch-action: none;
+  }
+
+  ::selection {
+    background: var(--color-marigold);
+    color: #0d0d12;
+  }
+}
+
+/* ── Chunky component layer ───────────────────────────────── */
+@layer components {
+  /* 1. Puffy Toy Card (clay base) */
+  .toy-card {
+    background: var(--color-puffy);
+    border-radius: var(--radius-toy);
+    border: 3px solid var(--color-clayline);
+    box-shadow:
+      0 12px 0 var(--color-claydrop),
+      0 20px 30px rgb(0 0 0 / 0.35);
+    padding: 24px;
+  }
+
+  .toy-card-flat {
+    background: var(--color-puffy);
+    border-radius: 22px;
+    border: 3px solid var(--color-clayline);
+    box-shadow: 0 6px 0 var(--color-claydrop);
+  }
+
+  /* Inset "pressed into clay" well — used for invoices and readouts */
+  .toy-well {
+    background: #12111b;
+    border-radius: 20px;
+    border: 3px solid var(--color-clayline);
+    box-shadow: inset 0 4px 10px rgb(0 0 0 / 0.4);
+  }
+
+  /* 2. The Bouncy "Click Me" Button (3D depress effect) */
+  .btn-toy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--color-marigold);
+    color: #0d0d12;
+    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    padding: 15px 24px;
+    border-radius: var(--radius-btn);
+    border: 3px solid #000000;
+    box-shadow: 0 6px 0 #000000;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease,
+      filter 0.15s ease;
+    user-select: none;
+  }
+  .btn-toy:active:not(:disabled) {
+    transform: translateY(6px);
+    box-shadow: 0 0 0 #000000;
+  }
+  .btn-toy:disabled {
+    opacity: 0.45;
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+  }
+
+  .btn-pink {
+    background: var(--color-gulabi);
+    color: #fff;
+  }
+  .btn-mint {
+    background: var(--color-pista);
+    color: #06322e;
+  }
+  .btn-sky {
+    background: var(--color-sky);
+    color: #fff;
+  }
+  .btn-cream {
+    background: #252336;
+    color: #f3f2f8;
+  }
+  .btn-ink {
+    background: #f3f2f8;
+    color: #0d0d12;
+  }
+
+  .btn-sm {
+    padding: 10px 16px;
+    font-size: 0.86rem;
+    border-radius: 15px;
+    border-width: 2.5px;
+    box-shadow: 0 4px 0 #000000;
+  }
+  .btn-sm:active:not(:disabled) {
+    transform: translateY(4px);
+  }
+
+  .btn-lg {
+    padding: 18px 30px;
+    font-size: 1.2rem;
+    border-radius: 24px;
+    box-shadow: 0 7px 0 #000000;
+  }
+  .btn-lg:active:not(:disabled) {
+    transform: translateY(7px);
+  }
+
+  /* Selectable option tile (thread types, gems, mithai) */
+  .toy-chip {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    background: var(--color-puffy);
+    border: 3px solid var(--color-clayline);
+    border-radius: 18px;
+    box-shadow: 0 5px 0 var(--color-claydrop);
+    padding: 12px 14px;
+    text-align: left;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease,
+      border-color 0.15s ease;
+  }
+  .toy-chip:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 var(--color-claydrop);
+  }
+  .toy-chip[data-on='true'] {
+    border-color: var(--color-marigold);
+    box-shadow: 0 5px 0 var(--color-marigold-deep);
+  }
+
+  .toy-input {
+    width: 100%;
+    background: #12111b;
+    color: #f3f2f8;
+    border: 3px solid var(--color-clayline);
+    border-radius: 16px;
+    padding: 13px 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .toy-input:focus {
+    border-color: var(--color-marigold);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 2.5px solid var(--color-espresso);
+  }
+  .tag-sister {
+    background: var(--color-gulabi);
+    color: #fff;
+  }
+  .tag-brother {
+    background: var(--color-pista);
+    color: #06322e;
+  }
+  .tag-gold {
+    background: var(--color-marigold);
+    color: var(--color-espresso);
+  }
+
+  /* Chunky range slider — used by the Tax Audit deductions */
+  .toy-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 16px;
+    border-radius: 999px;
+    background: #f0e6da;
+    border: 3px solid var(--color-clayline);
+    outline: none;
+  }
+  .toy-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-sky);
+    border: 3px solid var(--color-espresso);
+    box-shadow: 0 3px 0 var(--color-espresso);
+    cursor: grab;
+    margin-top: -1px;
+  }
+  .toy-range::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-sky);
+    border: 3px solid var(--color-espresso);
+    box-shadow: 0 3px 0 var(--color-espresso);
+    cursor: grab;
+  }
+
+  .num {
+    font-family: var(--font-numeric);
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Red rubber "AUDITED / DISCOUNTED" stamp */
+  .stamp {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #d93a56;
+    border: 4px solid #d93a56;
+    border-radius: 10px;
+    padding: 4px 12px;
+    opacity: 0.88;
+    mix-blend-mode: multiply;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      100deg,
+      var(--color-espresso) 34%,
+      var(--color-marigold) 50%,
+      var(--color-espresso) 66%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-shimmer);
+  }
+
+  /* Dashed tear-off line for invoices & vouchers */
+  .tear {
+    border-top: 3px dashed var(--color-clayline);
+  }
+
+  .scroll-y {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-y::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scroll-y::-webkit-scrollbar-thumb {
+    background: var(--color-claydrop);
+    border-radius: 99px;
+  }
+}
+
+@layer utilities {
+  .safe-b {
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
+  }
+  .safe-t {
+    padding-top: max(14px, env(safe-area-inset-top));
+  }
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .grabbing {
+    cursor: grabbing;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
