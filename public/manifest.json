@@ -1,0 +1,20 @@
+{
+  "short_name": "anithor",
+  "name": "anithor bond · 3D Digital Rakhi & Sibling Tax",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0d0d12",
+  "theme_color": "#0d0d12",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Forge a 3D Rakhi, attach a Sibling Tax invoice, lock gifts in a Shagun Vault.",
+  "categories": ["entertainment", "lifestyle", "social"],
+  "lang": "en"
+}

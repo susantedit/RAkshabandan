@@ -7,6 +7,11 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <meta name="theme-color" content="#0d0d12" />
+    <meta name="application-name" content="anithor bond" />
+    <meta name="apple-mobile-web-app-title" content="anithor bond" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
     <title>anithor bond · Rakhi with Digital Love | Raksha Bandhan 3D Gift &amp; Sibling Tax</title>
     <meta
       name="description"
@@ -17,11 +22,21 @@
       content="anithor, anithor bond, anithor.site, Raksha Bandhan, 3D Rakhi, Rakhi Forge, Sibling Tax, Shagun Vault, Nepal Rakhi, Susant Luitel, Sujita, Rakhi digital gift, Susantedit, Kanta Raj Luitel, kantarajluitel.tech"
     />
     <meta name="author" content="Kanta Raj Luitel (Susant Luitel)" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
     <link rel="canonical" href="https://anithor.site/" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Hreflang Multi-Region Links -->
+    <link rel="alternate" hreflang="en" href="https://anithor.site/" />
+    <link rel="alternate" hreflang="en-US" href="https://anithor.site/" />
+    <link rel="alternate" hreflang="en-NP" href="https://anithor.site/" />
+    <link rel="alternate" hreflang="ne-NP" href="https://anithor.site/" />
+    <link rel="alternate" hreflang="x-default" href="https://anithor.site/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="anithor bond" />
     <meta property="og:url" content="https://anithor.site/" />
     <meta property="og:title" content="anithor bond · Rakhi with Digital Love" />
     <meta
@@ -29,9 +44,14 @@
       content="A bond that protects, a love that connects. Tie a 3D Rakhi &amp; negotiate Sibling Tax. 100% encrypted end-to-end."
     />
     <meta property="og:image" content="https://anithor.site/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="anithor bond logo preview" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Susantedit" />
     <meta name="twitter:creator" content="@Susantedit" />
     <meta name="twitter:title" content="anithor bond · Rakhi with Digital Love" />
     <meta
@@ -40,29 +60,154 @@
     />
     <meta name="twitter:image" content="https://anithor.site/logo.png" />
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Multi-Entity Schema.org JSON-LD Graph -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "anithor bond",
-        "alternateName": ["anithor", "anithor.site", "Rakhi Forge"],
-        "url": "https://anithor.site",
-        "applicationCategory": "EntertainmentApplication",
-        "operatingSystem": "All",
-        "description": "A 3D Raksha Bandhan digital experience for sisters and brothers. Forge 3D Rakhis, negotiate Sibling Tax, and send troll vaults.",
-        "author": {
-          "@type": "Person",
-          "name": "Kanta Raj Luitel",
-          "alternateName": "Susant Luitel",
-          "url": "https://kantarajluitel.tech",
-          "sameAs": [
-            "https://facebook.com/Kantaraj.Luitel",
-            "https://instagram.com/susantgamerz",
-            "https://github.com/susantedit",
-            "https://x.com/Susantedit"
-          ]
-        }
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://anithor.site/#webapp",
+            "name": "anithor bond",
+            "alternateName": ["anithor", "anithor.site", "Rakhi Forge"],
+            "url": "https://anithor.site",
+            "applicationCategory": "EntertainmentApplication",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires WebGL & Web Crypto API support",
+            "description": "A 3D Raksha Bandhan digital experience for sisters and brothers. Forge 3D Rakhis, negotiate Sibling Tax, and send encrypted troll vaults.",
+            "inLanguage": ["en", "ne"],
+            "featureList": [
+              "Custom 3D WebGL Rakhi Forge",
+              "Interactive Sibling Tax Invoice & Counter-Offer Generator",
+              "Encrypted Voice Blessing Audio Capsules",
+              "Zero-Server End-to-End Web Crypto (AES-GCM)",
+              "Digital Shagun Claim Wallet"
+            ],
+            "author": {
+              "@id": "https://anithor.site/#author"
+            },
+            "publisher": {
+              "@id": "https://anithor.site/#organization"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://anithor.site/#website",
+            "url": "https://anithor.site/",
+            "name": "anithor bond",
+            "description": "A bond that protects, a love that connects. Digital 3D Rakhi & Sibling Tax Portal.",
+            "publisher": {
+              "@id": "https://anithor.site/#organization"
+            },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://anithor.site/#organization",
+            "name": "anithor bond",
+            "url": "https://anithor.site",
+            "logo": "https://anithor.site/logo.png",
+            "founder": {
+              "@id": "https://anithor.site/#author"
+            },
+            "sameAs": [
+              "https://kantarajluitel.tech",
+              "https://github.com/susantedit",
+              "https://x.com/Susantedit"
+            ]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://anithor.site/#author",
+            "name": "Kanta Raj Luitel",
+            "alternateName": ["Susant Luitel", "Susantedit"],
+            "url": "https://kantarajluitel.tech",
+            "jobTitle": "Full Stack Developer & Creator of anithor bond",
+            "sameAs": [
+              "https://facebook.com/Kantaraj.Luitel",
+              "https://instagram.com/susantgamerz",
+              "https://github.com/susantedit",
+              "https://x.com/Susantedit"
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://anithor.site/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://anithor.site/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Rakhi Forge",
+                "item": "https://anithor.site/#build"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Shagun Wallet",
+                "item": "https://anithor.site/#wallet"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Privacy Policy",
+                "item": "https://anithor.site/#privacy"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://anithor.site/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is anithor bond?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "anithor bond (anithor.site) is an interactive 3D WebGL web application for Raksha Bandhan allowing sisters and brothers to tie virtual Rakhis, negotiate Sibling Tax, and send voice-blessed encrypted capsules."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my data stored on any server?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Everything is encrypted directly on your device using the browser Web Crypto API (AES-GCM). Data is contained entirely inside the shareable link fragment (#) with zero server storage."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who created anithor bond?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "anithor bond was designed and built by Kanta Raj Luitel (Susant Luitel / Susantedit)."
+                }
+              }
+            ]
+          },
+          {
+            "@type": "Article",
+            "@id": "https://anithor.site/#article",
+            "headline": "How I Built anithor bond: A 3D Raksha Bandhan Experience with Three.js & Zero-Server Cryptography",
+            "description": "Learn how I built anithor bond, a 3D Raksha Bandhan experience using Three.js, Web Crypto AES-GCM, encrypted URL capsules, and a zero-server architecture.",
+            "image": "https://anithor.site/logo.png",
+            "datePublished": "2026-08-26T00:00:00+05:45",
+            "dateModified": "2026-08-26T00:00:00+05:45",
+            "mainEntityOfPage": "https://anithor.site/#blog",
+            "url": "https://anithor.site/#blog",
+            "author": {
+              "@id": "https://anithor.site/#author"
+            },
+            "publisher": {
+              "@id": "https://anithor.site/#organization"
+            }
+          }
+        ]
       }
     </script>
 
@@ -73,6 +218,7 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
   </head>
   <body>
     <div id="root"></div>

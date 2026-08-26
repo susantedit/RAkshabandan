@@ -14,6 +14,7 @@ export type Route =
   | { name: 'brother-defend' }
   | { name: 'wallet' }
   | { name: 'privacy' }
+  | { name: 'blog' }
   | { name: 'capsule'; prefix: CapsulePrefix; capsule: string }
 
 const SCREENS: Record<string, Route['name']> = {
@@ -22,6 +23,8 @@ const SCREENS: Record<string, Route['name']> = {
   defend: 'brother-defend',
   wallet: 'wallet',
   privacy: 'privacy',
+  blog: 'blog',
+  'blog/anithor-bond-3d-rakhi-digital-love': 'blog',
 }
 
 export function parseHash(raw: string): Route {

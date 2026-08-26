@@ -1,0 +1,25 @@
+# anithor bond (https://anithor.site)
+> A bond that protects, a love that connects.
+
+## Summary
+anithor bond (anithor.site) is an interactive 3D WebGL web application built for Raksha Bandhan. It enables sisters and brothers to tie virtual 3D Rakhis, negotiate Sibling Tax invoices, lock voice blessings, and exchange digital Shagun gifts with zero-server, end-to-end encryption.
+
+## Key Features & Capabilities
+- **3D Rakhi Forge**: Interactive 3D WebGL Rakhi visualizer allowing sisters to choose custom centerpieces, dial colors, thread patterns, and record audio blessings.
+- **Sibling Tax Calculator**: Dynamic invoice system where sisters set initial demands and brothers counter-negotiate terms.
+- **Shagun Vault & Troll Lockers**: Secure digital vaults for locking cash gifts, troll audio messages, and sibling promises.
+- **Zero-Server Web Crypto Architecture**: 100% on-device AES-GCM & PBKDF2 encryption. All capsule state lives strictly inside the shareable URL fragment (`#`), ensuring complete privacy with no database or backend server tracking.
+- **Digital Wallet & Claim Portal**: Instant settlement tracker for UPI and eSewa payments.
+
+## Canonical URLs & Routes
+- Homepage & App Shell: https://anithor.site/
+- Technical Case Study: https://anithor.site/#blog (or https://anithor.site/blog/anithor-bond-3d-rakhi-digital-love)
+- Rakhi Forge: https://anithor.site/#build
+- Shagun Wallet: https://anithor.site/#wallet
+- Privacy & Encryption Technical Specs: https://anithor.site/#privacy
+
+## Authors & E-E-A-T Attribution
+- **Creator**: Kanta Raj Luitel (Susant Luitel / Susantedit)
+- **Author Portfolio**: https://kantarajluitel.tech
+- **GitHub Repository & Developer Handle**: [@susantedit](https://github.com/susantedit)
+- **Twitter/X Handle**: [@Susantedit](https://x.com/Susantedit)

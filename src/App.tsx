@@ -15,6 +15,7 @@ import {
   normalizeSister,
   normalizeSisterReply,
 } from './lib/payload'
+import { Blog } from './screens/Blog'
 import { Home } from './screens/Home'
 import { SisterBuild } from './screens/SisterBuild'
 import { BrotherDefend } from './screens/BrotherDefend'
@@ -133,6 +134,8 @@ function Unsupported() {
   )
 }
 
+import { updateSeoMetadata } from './lib/seo'
+
 /* ── router ──────────────────────────────────────────────────────────────── */
 
 function RouteView() {
@@ -141,6 +144,7 @@ function RouteView() {
   useEffect(() => {
     // Keep long capsule screens from starting scrolled halfway down.
     window.scrollTo(0, 0)
+    updateSeoMetadata(route.name)
   }, [route])
 
   switch (route.name) {
@@ -152,6 +156,8 @@ function RouteView() {
       return <Wallet />
     case 'privacy':
       return <Privacy />
+    case 'blog':
+      return <Blog />
     case 'capsule':
       return <CapsuleScreen key={`${route.prefix}:${route.capsule}`} prefix={route.prefix} capsule={route.capsule} />
     case 'home':

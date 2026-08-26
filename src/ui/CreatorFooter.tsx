@@ -80,6 +80,16 @@ export function CreatorFooter({ className = '' }: { className?: string }) {
           </a>
         </div>
 
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-espresso/80 pt-2">
+          <a href="#blog" className="hover:text-gulabi-deep transition-colors underline">
+            📖 How I Built anithor bond (3D WebGL Case Study)
+          </a>
+          <span>•</span>
+          <a href="#privacy" className="hover:text-gulabi-deep transition-colors underline">
+            🔒 Encryption Specs
+          </a>
+        </div>
+
         <p className="text-[0.7rem] text-espresso/45 pt-1">
           anithor.site · Encrypted end-to-end · No data sent to servers
         </p>

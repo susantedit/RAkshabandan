@@ -1,4 +1,29 @@
+# Robots.txt for anithor bond (https://anithor.site)
 User-agent: *
 Allow: /
 
+# AI & LLM Search Engine Crawlers (Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Sitemap & Preferred Host
+Host: https://anithor.site
 Sitemap: https://anithor.site/sitemap.xml
