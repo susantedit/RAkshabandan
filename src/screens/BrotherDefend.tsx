@@ -200,6 +200,11 @@ export function BrotherDefend() {
   const noWebGL = useNoWebGL()
   const { link, building, build } = useCapsuleLink('b')
 
+  const cleanTerms = useMemo(
+    () => draft.contract.terms.map((t) => t.trim()).filter(Boolean),
+    [draft.contract.terms]
+  )
+
   const patch = (next: Partial<BrotherPayload>) => setDraft((current) => ({ ...current, ...next }))
   const patchVault = (next: Partial<BrotherPayload['vault']>) =>
     setDraft((current) => ({ ...current, vault: { ...current.vault, ...next } }))
